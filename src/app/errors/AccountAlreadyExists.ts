@@ -1,6 +1,8 @@
 export class AccountAlreadyExists extends Error {
-  constructor() {
-    super('Account already exists');
-    this.name = 'AccountAlreadyExists';
-  }
+  name = 'AccountAlreadyExists';
+  message = 'Account already exists';
+  // constructor() {
+  //   super('Account already exists');
+  //   this.name = 'AccountAlreadyExists';
+  // }
 }
