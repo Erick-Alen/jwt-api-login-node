@@ -17,18 +17,5 @@ app.get('/', (req, res) => {
 });
 
 app.post('/signup', routeAdapter(makeSignUpController()));
-app.post('/signup', async (req, res) => {
-  const signUpController = makeSignUpController();
-  const { statusCode, body } = await signUpController.handle({
-    body: req.body,
-  });
-  res.status(statusCode).json(body);
-});
 
-app.post('/signin', async (req, res) => {
-  const signInController = makeSignInController();
-  const { body, statusCode } = await signInController.handle({
-    body: req.body,
-  });
-  res.status(statusCode).json(body);
-});
+app.post('/signin', routeAdapter(makeSignInController()));
