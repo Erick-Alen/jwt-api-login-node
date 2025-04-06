@@ -7,13 +7,16 @@ interface IInput {
   email: string;
   password: string;
 }
-
-// biome-ignore lint/suspicious/noEmptyInterface: <explanation>
 interface IOutput {
-  // Define the output type if needed
+  name: string;
+  email: string;
+  hashedPassword: string;
 }
 
+// adding dependency injection
+
 export class SignUpUseCase {
+  constructor (private readonly salt: number) {}
   async execute({email, name, password} : IInput): Promise<IOutput> {
     const emailAlreadyExists = await prismaClient.account.findUnique({
       where: {
@@ -23,20 +26,21 @@ export class SignUpUseCase {
     if (emailAlreadyExists) {
       throw new AccountAlreadyExists();
     }
+
+    const hashedPassword = await hash(password, this.salt);
+
     await prismaClient.account.create({
       data: {
         email,
         name,
-        password,
-      }
-    })
-
-    const hashedPassword = hash(password, 10);
+        password: hashedPassword,
+      },
+    });
 
     return {
         email,
         name,
         hashedPassword,
-      } as IOutput;
+      };
   }
 }
