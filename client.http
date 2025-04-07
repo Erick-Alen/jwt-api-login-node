@@ -1,0 +1,19 @@
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+  "name":"vitao",
+  "email":"vitao2@mail.com",
+  "password":"vitao123reidelas"
+}
+
+###
+POST http://localhost:3000/signin
+Content-Type: application/json
+
+{
+  "email":"vitao@mail.com",
+  "password":"vitao123reidelas"
+}
+
+###
