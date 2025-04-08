@@ -2,9 +2,9 @@ POST http://localhost:3000/signup
 Content-Type: application/json
 
 {
-  "name":"vitao",
-  "email":"vitao2@mail.com",
-  "password":"vitao123reidelas"
+  "name":"erick",
+  "email":"erick@mail.com",
+  "password":"erickreidelas"
 }
 
 ###
@@ -12,8 +12,15 @@ POST http://localhost:3000/signin
 Content-Type: application/json
 
 {
-  "email":"vitao@mail.com",
-  "password":"vitao123reidelas"
+  "email":"erick@mail.com",
+  "password":"erickreidelas"
 }
+# {
+#   "email":"vitao@mail.com",
+#   "password":"vitao123reidelas"
+# }
 
 ###
+GET http://localhost:3000/leads
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiZXJpY2siLCJpYXQiOjE3NDQwODI4MTMsImV4cCI6MTc0NDE2OTIxMywic3ViIjoiNmMwMjA1MmItZTliYy00NmY4LWIwMWMtZmEzZDQ0OTZmY2Y0In0.RhUPDQirLXnNHViH1G224O9YuhYjkawEilRHZTfdE6Q

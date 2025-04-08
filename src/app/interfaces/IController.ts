@@ -2,12 +2,12 @@ export interface IRequest {
   body: Record<string, any>;
   params?: any;
   query?: any;
-  headers?: any;
+  headers?: Record<string, string>;
 }
 export interface IResponse {
-  statusCode: number;
+  statusCode: 200 | number;
   body: Record<string, any> | null;
-  headers?: any;
+  headers?: Record<string, string>;
   message?: string;
 }
 

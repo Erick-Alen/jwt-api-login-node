@@ -1,7 +1,10 @@
 import express from 'express';
+import { makeListLeadsController } from '../factories/makeListLeadsController';
+import { makeSignInController } from '../factories/signin/makeSignInController';
 import { makeSignUpController } from '../factories/signup/makeSignUpController';
 import { routeAdapter } from './adapters/routeAdapter';
-import { makeSignInController } from '../factories/signin/makeSignInController';
+import { makeAuthMiddleware } from '../factories/middlewares/makeAuthMiddleware';
+import { middlewareAdapter } from './adapters/middlewareAdapter';
 
 const app = express();
 
@@ -19,3 +22,17 @@ app.get('/', (req, res) => {
 app.post('/signup', routeAdapter(makeSignUpController()));
 
 app.post('/signin', routeAdapter(makeSignInController()));
+
+app.get(
+  '/leads',
+  (request, response, next) => {
+    // middleware to check if user is authenticated
+    if (!request.headers.authorization) {
+      return response.sendStatus(401);
+    }
+
+    next();
+  },
+  middlewareAdapter(makeAuthMiddleware()),
+  routeAdapter(makeListLeadsController()),
+);
