@@ -3,12 +3,12 @@ export interface IRequest {
 }
 export interface IResponse {
   statusCode: number;
-  body: Record<string, any>;
+  body: Record<string, any> | null;
 }
 
 export interface IData {
   data: Record<string, any>;
 }
 export interface IMiddleware {
-  handle({headers}: IRequest): Promise<IResponse | IData>;
+  handle(request: IRequest): Promise<IResponse | IData>;
 }

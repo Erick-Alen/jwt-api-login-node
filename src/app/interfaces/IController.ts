@@ -1,6 +1,8 @@
+
 export interface IRequest {
   body: Record<string, any>;
-  params?: any;
+  params: Record<string, any>;
+  accountId: string | undefined;
   query?: any;
   headers?: Record<string, string>;
 }
