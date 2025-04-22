@@ -30,7 +30,8 @@ app.get(
   routeAdapter(makeListLeadsController()),
 );
 
-app.post('/leads',
+app.post(
+  '/leads',
   middlewareAdapter(makeAuthenticationMiddleware()),
   middlewareAdapter(makeAuthorizationMiddleware(['ADMIN'])),
   // async (req, res) => {

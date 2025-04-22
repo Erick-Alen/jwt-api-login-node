@@ -5,10 +5,6 @@ export class AuthorizationMiddleware implements IMiddleware {
   constructor(private readonly allowedRoles: string[]) {}
 
   async handle({ account }: IRequest): Promise<IResponse | IData> {
-    console.log('AuthorizationMiddleware loaded');
-    console.log('Account:', account);
-
-
     if (!account) {
       return {
         statusCode: 403,

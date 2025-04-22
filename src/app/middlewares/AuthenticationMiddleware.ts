@@ -1,10 +1,6 @@
 import { JwtPayload, verify } from 'jsonwebtoken';
 import { env } from '../config/env';
-import {
-  IData,
-  IMiddleware,
-  IResponse,
-} from '../interfaces/IMiddleware';
+import { IData, IMiddleware, IResponse } from '../interfaces/IMiddleware';
 import { IRequest } from '../interfaces/IRequest';
 
 export class AuthenticationMiddleware implements IMiddleware {

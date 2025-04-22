@@ -23,4 +23,4 @@ export const middlewareAdapter = (middleware: IMiddleware) => {
 
     next();
   };
-}
+};
