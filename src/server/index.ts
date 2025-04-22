@@ -1,5 +1,5 @@
 import express from 'express';
-import { makeListLeadsController } from '../factories/makeListLeadsController';
+import { makeListLeadsController } from './makeListLeadsController';
 import { makeAuthorizationMiddleware } from '../factories/middlewares/makeAuthorizationMiddleware';
 import { makeSignInController } from '../factories/signin/makeSignInController';
 import { makeSignUpController } from '../factories/signup/makeSignUpController';

@@ -1,8 +1,9 @@
+import { Role } from '@prisma/client';
 import { IData, IMiddleware, IResponse } from '../interfaces/IMiddleware';
 import { IRequest } from '../interfaces/IRequest';
 
 export class AuthorizationMiddleware implements IMiddleware {
-  constructor(private readonly allowedRoles: string[]) {}
+  constructor(private readonly allowedRoles: Role[]) {}
 
   async handle({ account }: IRequest): Promise<IResponse | IData> {
     if (!account) {
@@ -14,7 +15,7 @@ export class AuthorizationMiddleware implements IMiddleware {
       };
     }
 
-    if (!this.allowedRoles.includes(account.role)) {
+    if (!this.allowedRoles.includes(account.role as Role)) {
       return {
         statusCode: 403,
         body: {
