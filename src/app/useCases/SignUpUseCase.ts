@@ -16,13 +16,13 @@ interface IOutput {
 // adding dependency injection
 
 export class SignUpUseCase {
-  constructor (private readonly salt: number) {}
-  async execute({email, name, password} : IInput): Promise<IOutput> {
+  constructor(private readonly salt: number) {}
+  async execute({ email, name, password }: IInput): Promise<IOutput> {
     const emailAlreadyExists = await prismaClient.account.findUnique({
       where: {
-        email
-      }
-    })
+        email,
+      },
+    });
     if (emailAlreadyExists) {
       throw new AccountAlreadyExists();
     }
@@ -39,9 +39,9 @@ export class SignUpUseCase {
     });
 
     return {
-        email,
-        name,
-        hashedPassword,
-      };
+      email,
+      name,
+      hashedPassword,
+    };
   }
 }

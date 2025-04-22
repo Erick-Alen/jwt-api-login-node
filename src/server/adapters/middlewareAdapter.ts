@@ -18,7 +18,7 @@ export const middlewareAdapter = (middleware: IMiddleware) => {
       ...result.data,
     };
 
-    next()
+    next();
 
     // return result.data;
   };

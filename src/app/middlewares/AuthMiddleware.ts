@@ -1,9 +1,14 @@
 import { verify } from 'jsonwebtoken';
 import { env } from '../config/env';
-import { IData, IMiddleware, IRequest, IResponse } from '../interfaces/IMiddleware';
+import {
+  IData,
+  IMiddleware,
+  IRequest,
+  IResponse,
+} from '../interfaces/IMiddleware';
 
 export class AuthenticationMiddleware implements IMiddleware {
-  async handle({ headers }: IRequest): Promise<IResponse| IData> {
+  async handle({ headers }: IRequest): Promise<IResponse | IData> {
     const { authorization } = headers;
     if (!authorization) {
       return {
@@ -15,12 +20,12 @@ export class AuthenticationMiddleware implements IMiddleware {
     }
 
     try {
-    const [prefixToken, token] = authorization.split(' ');
-    if (prefixToken !== 'Bearer' || !token) {
-      throw new Error();
-    }
+      const [prefixToken, token] = authorization.split(' ');
+      if (prefixToken !== 'Bearer' || !token) {
+        throw new Error();
+      }
 
-      const { sub } = verify(token, env.jwtSecret!)
+      const { sub } = verify(token, env.jwtSecret!);
       return {
         statusCode: 200,
         body: {

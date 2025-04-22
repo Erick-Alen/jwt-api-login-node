@@ -8,11 +8,11 @@ export class ListLeadsController implements IController {
       statusCode: 200,
       body: {
         leads: [
-          {id: '1', name: 'john'},
-          {id: '2', name: 'marie'},
-          {id: '3', name: 'james'}
+          { id: '1', name: 'john' },
+          { id: '2', name: 'marie' },
+          { id: '3', name: 'james' },
         ],
       },
-    }
+    };
   }
 }

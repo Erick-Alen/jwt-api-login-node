@@ -13,12 +13,12 @@ interface IOutput {
 }
 
 export class SignInUseCase {
-  async execute({email, password} : IInput): Promise<IOutput> {
+  async execute({ email, password }: IInput): Promise<IOutput> {
     const account = await prismaClient.account.findUnique({
       where: {
-        email
-      }
-    })
+        email,
+      },
+    });
 
     if (!account) {
       throw new InvalidCredentials();
@@ -30,14 +30,18 @@ export class SignInUseCase {
       throw new InvalidCredentials();
     }
 
-    const accessToken = sign({user: account.name, role: account.role}, env.jwtSecret!, {
-      subject: account.id,
-      expiresIn: '1d',
-      algorithm: 'HS256',
-    });
+    const accessToken = sign(
+      { user: account.name, role: account.role },
+      env.jwtSecret!,
+      {
+        subject: account.id,
+        expiresIn: '1d',
+        algorithm: 'HS256',
+      },
+    );
 
     return {
-      accessToken
+      accessToken,
     };
   }
 }

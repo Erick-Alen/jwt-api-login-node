@@ -40,10 +40,10 @@ app.post(
       },
       select: {
         role: true,
-      }
+      },
     });
     console.log('user role:', accRole);
 
-    res.send(200).json('Leads created!')
-  }
+    res.send(200).json('Leads created!');
+  },
 );
