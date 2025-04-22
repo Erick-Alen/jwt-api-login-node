@@ -1,5 +1,5 @@
-import { AuthMiddleware } from '../../app/middlewares/AuthMiddleware';
+import { AuthenticationMiddleware } from '../../app/middlewares/AuthMiddleware';
 
 export const makeAuthMiddleware = () => {
-  return new AuthMiddleware();
+  return new AuthenticationMiddleware();
 };

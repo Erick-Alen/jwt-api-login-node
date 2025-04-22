@@ -1,8 +1,8 @@
-import { compare, hash } from 'bcryptjs';
-import { InvalidCredentials } from '../errors/InvalidCredentials';
-import { prismaClient } from '../lib/prismaClient';
+import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { env } from '../config/env';
+import { InvalidCredentials } from '../errors/InvalidCredentials';
+import { prismaClient } from '../lib/prismaClient';
 interface IInput {
   email: string;
   password: string;
@@ -30,7 +30,7 @@ export class SignInUseCase {
       throw new InvalidCredentials();
     }
 
-    const accessToken = sign({user: account.name}, env.jwtSecret!, {
+    const accessToken = sign({user: account.name, role: account.role}, env.jwtSecret!, {
       subject: account.id,
       expiresIn: '1d',
       algorithm: 'HS256',
