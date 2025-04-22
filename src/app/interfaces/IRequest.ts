@@ -1,3 +1,5 @@
+import { Role } from '@prisma/client';
+
 export interface IRequest {
   body: Record<string, any>;
   params: Record<string, any>;
@@ -5,6 +7,6 @@ export interface IRequest {
   query?: any;
   account?: {
     id: string;
-    role: string;
+    role: Role;
   };
 }
