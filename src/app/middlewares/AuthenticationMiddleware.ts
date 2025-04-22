@@ -1,15 +1,15 @@
-import { verify } from 'jsonwebtoken';
+import { JwtPayload, verify } from 'jsonwebtoken';
 import { env } from '../config/env';
 import {
   IData,
   IMiddleware,
-  IRequest,
   IResponse,
 } from '../interfaces/IMiddleware';
+import { IRequest } from '../interfaces/IRequest';
 
 export class AuthenticationMiddleware implements IMiddleware {
   async handle({ headers }: IRequest): Promise<IResponse | IData> {
-    const { authorization } = headers;
+    const authorization = headers?.authorization;
     if (!authorization) {
       return {
         statusCode: 401,
@@ -25,15 +25,12 @@ export class AuthenticationMiddleware implements IMiddleware {
         throw new Error();
       }
 
-      const { sub } = verify(token, env.jwtSecret!);
+      const payload = verify(token, env.jwtSecret!) as JwtPayload;
       return {
-        statusCode: 200,
-        body: {
-          data: {
-            user: {
-              id: sub,
-              name: 'john',
-            },
+        data: {
+          account: {
+            id: payload.sub,
+            role: payload.role,
           },
         },
       };

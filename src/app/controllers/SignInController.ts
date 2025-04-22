@@ -2,10 +2,10 @@ import { ZodError, z } from 'zod';
 import { InvalidCredentials } from '../errors/InvalidCredentials';
 import type {
   IController,
-  IRequest,
   IResponse,
 } from '../interfaces/IController';
 import type { SignInUseCase } from '../useCases/SignInUseCase';
+import { IRequest } from '../interfaces/IRequest';
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),

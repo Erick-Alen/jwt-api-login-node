@@ -1,10 +1,7 @@
 import { ZodError, z } from 'zod';
 import { AccountAlreadyExists } from '../errors/AccountAlreadyExists';
-import type {
-  IController,
-  IRequest,
-  IResponse,
-} from '../interfaces/IController';
+import type { IController, IResponse } from '../interfaces/IController';
+import { IRequest } from '../interfaces/IRequest';
 import type { SignUpUseCase } from '../useCases/SignUpUseCase';
 
 const schema = z.object({

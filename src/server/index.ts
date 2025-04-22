@@ -1,11 +1,11 @@
 import express from 'express';
 import { makeListLeadsController } from '../factories/makeListLeadsController';
-import { makeAuthMiddleware } from '../factories/middlewares/makeAuthMiddleware';
+import { makeAuthorizationMiddleware } from '../factories/middlewares/makeAuthorizationMiddleware';
 import { makeSignInController } from '../factories/signin/makeSignInController';
 import { makeSignUpController } from '../factories/signup/makeSignUpController';
+import { makeAuthenticationMiddleware } from './../factories/middlewares/makeAuthMiddleware';
 import { middlewareAdapter } from './adapters/middlewareAdapter';
 import { routeAdapter } from './adapters/routeAdapter';
-import { prismaClient } from '../app/lib/prismaClient';
 
 const app = express();
 
@@ -26,24 +26,14 @@ app.post('/signin', routeAdapter(makeSignInController()));
 
 app.get(
   '/leads',
-  middlewareAdapter(makeAuthMiddleware()),
+  middlewareAdapter(makeAuthenticationMiddleware()),
   routeAdapter(makeListLeadsController()),
 );
 
-app.post(
-  '/leads',
-  middlewareAdapter(makeAuthMiddleware()),
-  async (req, res) => {
-    const accRole = await prismaClient.account.findUnique({
-      where: {
-        id: req.metadata.accountId,
-      },
-      select: {
-        role: true,
-      },
-    });
-    console.log('user role:', accRole);
-
-    res.send(200).json('Leads created!');
-  },
+app.post('/leads',
+  middlewareAdapter(makeAuthenticationMiddleware()),
+  middlewareAdapter(makeAuthorizationMiddleware(['ADMIN'])),
+  // async (req, res) => {
+  //   res.send(200).json('Leads created!');
+  // }
 );

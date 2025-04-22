@@ -6,6 +6,9 @@ import { IMiddleware } from '../../app/interfaces/IMiddleware';
 export const middlewareAdapter = (middleware: IMiddleware) => {
   return async (request: Request, response: Response, next: NextFunction) => {
     const result = await middleware.handle({
+      body: request.body,
+      params: request.params,
+      account: request.metadata?.account,
       headers: request.headers as Record<string, string>,
     });
 
@@ -19,7 +22,5 @@ export const middlewareAdapter = (middleware: IMiddleware) => {
     };
 
     next();
-
-    // return result.data;
   };
-};
+}
