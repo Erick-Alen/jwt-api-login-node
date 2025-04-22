@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "format": "pnpm biome format --write ./src",
     "dev": "tsx watch src/server/index.ts"
   },
   "keywords": [],
