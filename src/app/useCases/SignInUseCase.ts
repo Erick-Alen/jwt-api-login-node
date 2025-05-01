@@ -31,7 +31,7 @@ export class SignInUseCase {
     }
 
     const accessToken = sign(
-      { user: account.name, role: account.role },
+      { user: account.name, role: account.roleId },
       env.jwtSecret!,
       {
         subject: account.id,

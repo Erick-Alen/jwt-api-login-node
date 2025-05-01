@@ -3,9 +3,12 @@ Content-Type: application/json
 
 {
   "name":"erick",
-  "email":"erick@mail.com",
-  "password":"erickreidelas"
+  "email":"erick_ademiro@mail.com",
+  "password":"erickreidelas",
+  "roleId":"1359b719-d3a1-4a80-a62f-59e1d307b01b"
 }
+  # "email":"erick_ademiro@mail.com",
+  # "password":"erickreidelas",
 
 ###
 POST http://localhost:3000/signin

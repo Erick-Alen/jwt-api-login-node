@@ -8,6 +8,7 @@ const schema = z.object({
   name: z.string().min(1, { message: 'Name is required' }),
   email: z.string().email({ message: 'Invalid email' }),
   password: z.string().min(8, { message: 'Password is required' }),
+  roleId: z.string().uuid(),
 });
 
 export class SignUpController implements IController {
@@ -15,8 +16,8 @@ export class SignUpController implements IController {
 
   async handle({ body }: IRequest): Promise<IResponse> {
     try {
-      const { email, name, password } = schema.parse(body);
-      await this.signUpUseCase.execute({ email, name, password });
+      const { email, name, password, roleId } = schema.parse(body);
+      await this.signUpUseCase.execute({ email, name, password, roleId });
 
       return {
         statusCode: 204,

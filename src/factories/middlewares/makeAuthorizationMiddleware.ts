@@ -1,6 +1,10 @@
 import { Role } from '@prisma/client';
+import { makeGetRolePermissionsUseCase } from '../makeGetRolePermissionUseCase';
 import { AuthorizationMiddleware } from './../../app/middlewares/AuthorizationMiddleware';
 
-export function makeAuthorizationMiddleware(allowedRoles: Role[]) {
-  return new AuthorizationMiddleware(allowedRoles);
+export function makeAuthorizationMiddleware(allowedRoles: string[]) {
+  return new AuthorizationMiddleware(
+    allowedRoles,
+    makeGetRolePermissionsUseCase(),
+  );
 }
