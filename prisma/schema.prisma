@@ -13,17 +13,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
 model Account {
-  id String @id @default(uuid()) @db.Uuid
-  name String
-  email String @unique
+  id       String @id @default(uuid()) @db.Uuid
+  name     String
+  email    String @unique
   password String
-  role Role
+  roleId   String @map("role_id") @db.Uuid
+
+  role Role @relation(fields: [roleId], references: [id])
 
   @@map("accounts")
+}
+
+model Role {
+  id          String           @id @default(uuid()) @db.Uuid
+  name        String
+  // field to store defaul code role when the user is created
+  // default     String @default("USER")
+  accounts    Account[]
+  permissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id    String           @id @default(uuid()) @db.Uuid
+  name  String
+  code  String           @unique
+
+  roles RolePermission[]
+
+  @@map("permissions")
+}
+
+//obs: prisma uses an implicit many-to-many relationship implementation
+// for roles and permissions tables, and automatically creates the pivot table
+// in this case i will be creasted the pivot table manually
+model RolePermission {
+  permissionCode String     @map("permission_code")
+  roleId         String     @map("role_id") @db.Uuid
+  
+  role           Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission     Permission @relation(fields: [permissionCode], references: [code])
+
+  @@id([permissionCode, roleId])
+  @@map("roles_permissions")
 }
